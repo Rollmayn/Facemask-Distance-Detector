@@ -88,7 +88,7 @@ maskNet = load_model("mask_detector.model")
 
 # initialize the video stream
 print("[INFO] starting video stream...")
-# vs = VideoStream(src=0).start()
+#deadcode# vs = VideoStream(src=0).start()
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -98,8 +98,11 @@ ap.add_argument("-o", "--output", type=str, default="",
 	help="path to (optional) output video file")
 ap.add_argument("-d", "--display", type=int, default=1,
 	help="whether or not output frame should be displayed")
-args = vars(ap.parse_args())
-# args = vars(ap.parse_args(["--input", "pedestrians.mp4", "--output", "my_output.avi", "--display", "1"]))
+
+# uncomment first args for webcam, second args for video
+# input from directory
+# args = vars(ap.parse_args())
+args = vars(ap.parse_args(["--input", "test.mp4", "--output", "test_output.avi", "--display", "1"]))
 
 # load the COCO class labels our YOLO model was trained on
 labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
@@ -134,7 +137,7 @@ while True:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 400 pixels
 	(grabbed, frame) = vs.read()
-	frame = imutils.resize(frame, width=700)
+	frame = imutils.resize(frame, width=1920)
 
 	# if the frame was not grabbed, then we have reached the end
 	# of the stream
@@ -253,6 +256,9 @@ while True:
 	if writer is not None:
 		writer.write(frame)
 
-# do a bit of cleanup
+# remove de-allocated memory
 cv2.destroyAllWindows()
 vs.stop()
+
+#BY YOURS TRULY
+#STEFAN R. ROMAN
