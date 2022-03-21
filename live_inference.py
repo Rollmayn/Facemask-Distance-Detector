@@ -101,8 +101,8 @@ ap.add_argument("-d", "--display", type=int, default=1,
 
 # uncomment first args for webcam, second args for video
 # input from directory
-# args = vars(ap.parse_args())
-args = vars(ap.parse_args(["--input", "test.mp4", "--output", "test_output.avi", "--display", "1"]))
+args = vars(ap.parse_args())
+# args = vars(ap.parse_args(["--input", "test.mp4", "--output", "test_output.avi", "--display", "1"]))
 
 # load the COCO class labels our YOLO model was trained on
 labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
@@ -119,7 +119,7 @@ net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 # check if we are going to use GPU
 if config.USE_GPU:
 	# set CUDA as the preferable backend and target
-	print("[INFO] setting preferable backend and target to CUDA...")
+	print("[INFO] setting preferable rednering to CUDA...")
 	net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 	net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 

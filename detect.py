@@ -102,8 +102,9 @@ ap.add_argument("-d", "--display", type=int, default=1,
 
 # uncomment first args for webcam, second args for video
 # input from directory
-# args = vars(ap.parse_args())
-args = vars(ap.parse_args(["--input", "facemasks.mp4", "--output", "test_output.avi", "--display", "1"]))
+
+args = vars(ap.parse_args())
+# args = vars(ap.parse_args(["--input", "facemasks.mp4", "--output", "test_output2.avi", "--display", "1"]))
 
 # load the COCO class labels our YOLO model was trained on
 labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
@@ -114,13 +115,13 @@ weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
 # load our YOLO object detector trained on COCO dataset (80 classes)
-print("[INFO] loading YOLO from disk...")
+print("[INFO] loading YOLO from path...")
 net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 # check if we are going to use GPU
 if config.USE_GPU:
 	# set CUDA as the preferable backend and target
-	print("[INFO] setting preferable backend and target to CUDA...")
+	print("[INFO] setting preferable renders to CUDA...")
 	net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 	net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
@@ -223,15 +224,15 @@ while True:
 	# output frame
 	if len(results):
 		if len(violate) == 0:
-			text = "Yaa irie, ya'rite pon miself!"
+			text = "By yourself!"
 			cv2.putText(frame, text, (10, frame.shape[0] - 25),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 		else:
-			text = "Begone, thot!: {}".format(len(violate))
+			text = "Social Distancing Please!: {}".format(len(violate))
 			cv2.putText(frame, text, (10, frame.shape[0] - 25),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 	else:
-		text = "There's noone on this goddamn fucking planet!"
+		text = "No people in frame currently!"
 		cv2.putText(frame, text, (10, frame.shape[0] - 25),
 		cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
 
