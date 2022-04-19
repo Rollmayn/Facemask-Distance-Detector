@@ -88,7 +88,7 @@ faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 maskNet = load_model("mask_detector.model")
 
 # initialize the video stream
-print("[INFO] starting video stream...")
+print("[SYS] starting video stream...")
 #deadcode# vs = VideoStream(src=0).start()
 
 # construct the argument parse and parse the arguments
@@ -115,13 +115,13 @@ weightsPath = os.path.sep.join([config.MODEL_PATH, "yolov3.weights"])
 configPath = os.path.sep.join([config.MODEL_PATH, "yolov3.cfg"])
 
 # load our YOLO object detector trained on COCO dataset (80 classes)
-print("[INFO] loading YOLO from path...")
+print("[SYS] loading YOLO from path...")
 net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 # check if we are going to use GPU
 if config.USE_GPU:
 	# set CUDA as the preferable backend and target
-	print("[INFO] setting preferable renders to CUDA...")
+	print("[SYS] setting preferable renders to CUDA...")
 	net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 	net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
@@ -130,7 +130,7 @@ ln = net.getLayerNames()
 ln = [ln[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
 # initialize the video stream and pointer to output video file
-print("[INFO] accessing video stream...")
+print("[SYS] accessing video stream...")
 vs = cv2.VideoCapture(args["input"] if args["input"] else 0)
 writer = None
 
